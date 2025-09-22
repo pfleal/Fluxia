@@ -1,100 +1,130 @@
 <div align="center">
-    <a href="https://www.idurarapp.com/">
-  <img src="https://avatars.githubusercontent.com/u/50052356?s=200&v=4" width="128px" />
-    </a>
-    <h1>Open Source ERP / CRM Accounting Invoice Quote</h1>
+    <img src="idurar-crm-erp.svg" width="128px" />
+    <h1>Fluxia - Sistema CRM/ERP Personalizado</h1>
     <p align="center">
-        <p>IDURAR ERP CRM | Simple To Use</p>
+        <p>Sistema de Gestão Empresarial Completo em Português</p>
     </p>
     
 
 ```
- Give a Star ⭐️ & Fork to this project ... Happy coding! 🤩`
+ Dê uma Estrela ⭐️ & Fork neste projeto ... Feliz codificação! 🤩`
 ```
 
-IDURAR is Open Source ERP / CRM (Invoice / Quote / Accounting ) Based on Advanced Mern Stack (Node.js / Express.js / MongoDb / React.js ) with Ant Design (AntD) and Redux
+Fluxia é um Sistema CRM/ERP personalizado (Faturamento / Orçamentos / Contabilidade) baseado em MERN Stack avançado (Node.js / Express.js / MongoDb / React.js) com Ant Design (AntD) e Redux
 
 </div>
 
-**🚀 Self-hosted Entreprise Version** : [https://cloud.idurarapp.com](https://cloud.idurarapp.com/)
+**🚀 Repositório GitHub**: [https://github.com/pfleal/Fluxia](https://github.com/pfleal/Fluxia)
 
+## Funcionalidades Principais:
 
-## Features :
+✅ **Gestão de Faturas** - Sistema completo de faturamento
 
-Invoice Management
+✅ **Gestão de Pagamentos** - Controle financeiro integrado
 
-Payment Management
+✅ **Gestão de Orçamentos** - Criação e acompanhamento de propostas
 
-Quote Management
+✅ **Gestão de Clientes** - CRM completo para relacionamento
 
-Customer Management
+✅ **Interface Moderna** - Ant Design Framework (AntD) 🐜
 
-Ant Design Framework(AntD) 🐜
+✅ **Tecnologia Avançada** - MERN Stack (Node.js / Express.js / MongoDb / React.js) 👨‍💻
 
-Based on Mern Stack (Node.js / Express.js / MongoDb / React.js ) 👨‍💻
+✅ **Localização** - Sistema totalmente em português brasileiro
 
-### May i can use IDURAR for Commercial use :
+### Uso Comercial:
 
-- Yes You can use IDURAR for free for personal or Commercial use.
-
-## Our Sponsors
-
-  <a href="https://m.do.co/c/4ead8370b905?ref=idurarapp.com">
-    <img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/PoweredByDO/DO_Powered_by_Badge_blue.svg" width="201px">
-  </a>
+- ✅ Sim, você pode usar o Fluxia gratuitamente para uso pessoal ou comercial.
 
 #
 
-<img width="1403" alt="Open Source ERP CRM" src="https://github.com/idurar/idurar-erp-crm/assets/136928179/a6712286-7ca6-4822-8902-fb7523533ee8">
+<img width="1403" alt="Sistema CRM ERP Fluxia" src="https://github.com/idurar/idurar-erp-crm/assets/136928179/a6712286-7ca6-4822-8902-fb7523533ee8">
 
-## Free Open Source ERP / CRM App
+## Sistema CRM/ERP Gratuito e Personalizado
 
-IDURAR is Open "Fair-Code" Source ERP / CRM (Invoice / Inventory / Accounting / HR) Based on Mern Stack (Node.js / Express.js / MongoDb / React.js ) with Ant Design (AntD) and Redux
+Fluxia é um sistema de gestão empresarial completo, personalizado e otimizado para empresas brasileiras, baseado em tecnologias modernas e interface intuitiva.
 
+## Como Começar
 
-## Getting started
+1. **Clone o repositório**
+```bash
+git clone https://github.com/pfleal/Fluxia.git
+cd Fluxia
+```
 
-1.[Clone the repository](INSTALLATION-INSTRUCTIONS.md#step-1-clone-the-repository)
+2. **Configure o MongoDB**
+   - Crie sua conta no MongoDB Atlas
+   - Configure seu cluster de banco de dados
 
-2.[Create Your MongoDB Account and Database Cluster](INSTALLATION-INSTRUCTIONS.md#Step-2-Create-Your-MongoDB-Account-and-Database-Cluster)
+3. **Configure as Variáveis de Ambiente**
+   - Edite o arquivo de ambiente
+   - Atualize a URI do MongoDB
 
-3.[Edit the Environment File](INSTALLATION-INSTRUCTIONS.md#Step-3-Edit-the-Environment-File)
+4. **Instale as Dependências do Backend**
+```bash
+cd backend
+npm install
+```
 
-4.[Update MongoDB URI](INSTALLATION-INSTRUCTIONS.md#Step-4-Update-MongoDB-URI)
+5. **Execute o Script de Configuração**
+```bash
+npm run setup
+```
 
-5.[Install Backend Dependencies](INSTALLATION-INSTRUCTIONS.md#Step-5-Install-Backend-Dependencies)
+6. **Inicie o Servidor Backend**
+```bash
+npm run dev
+```
 
-6.[Run Setup Script](INSTALLATION-INSTRUCTIONS.md#Step-6-Run-Setup-Script)
+7. **Instale as Dependências do Frontend**
+```bash
+cd ../frontend
+npm install
+```
 
-7.[Run the Backend Server](INSTALLATION-INSTRUCTIONS.md#Step-7-Run-the-Backend-Server)
+8. **Inicie o Servidor Frontend**
+```bash
+npm run dev
+```
 
-8.[Install Frontend Dependencies](INSTALLATION-INSTRUCTIONS.md#Step-8-Install-Frontend-Dependencies)
+## Tecnologias Utilizadas
 
-9.[Run the Frontend Server](INSTALLATION-INSTRUCTIONS.md#Step-9-Run-the-Frontend-Server)
+- **Frontend**: React.js, Ant Design, Redux
+- **Backend**: Node.js, Express.js
+- **Banco de Dados**: MongoDB
+- **Autenticação**: JWT
+- **Estilização**: CSS-in-JS, Ant Design
 
-## Contributing
+## Estrutura do Projeto
 
-1.[How to contribute](https://github.com/idurar/idurar-erp-crm/blob/master/CONTRIBUTING.md#how-to-contribute)
+```
+Fluxia/
+├── frontend/          # Aplicação React
+├── backend/           # API Node.js/Express
+├── doc/              # Documentação
+└── features/         # Recursos multilíngues
+```
 
-2.[Reporting issues](https://github.com/idurar/idurar-erp-crm/blob/master/CONTRIBUTING.md#reporting-issues)
+## Contribuindo
 
-3.[Working on issues ](https://github.com/idurar/idurar-erp-crm/blob/master/CONTRIBUTING.md#working-on-issues)
+Contribuições são bem-vindas! Por favor:
 
-4.[Submitting pull requests](https://github.com/idurar/idurar-erp-crm/blob/master/CONTRIBUTING.md#submitting-pull-requests)
+1. Faça um Fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
 
-5.[Commit Guidelines](https://github.com/idurar/idurar-erp-crm/blob/master/CONTRIBUTING.md#commit-guidelines)
+## Suporte
 
-6.[Coding Guidelines](https://github.com/idurar/idurar-erp-crm/blob/master/CONTRIBUTING.md#coding-guidelines)
+Não esqueça de dar uma ⭐️ para este projeto ... Feliz codificação!
 
-7.[Questions](https://github.com/idurar/idurar-erp-crm/blob/master/CONTRIBUTING.md#questions)
+**🚀 Repositório**: [https://github.com/pfleal/Fluxia](https://github.com/pfleal/Fluxia)
 
+## Licença
 
-## Show your support
+Fluxia é um software livre lançado sob a Licença Pública Geral GNU Affero v3.0.
 
-Dont forget to give a ⭐️ to this project ... Happy coding!
+---
 
-**🚀 Self-hosted Entreprise Version** : [https://cloud.idurarapp.com](https://cloud.idurarapp.com)
-
-## License
-
-IDURAR is Free Open Source Released under the GNU Affero General Public License v3.0.
+**Desenvolvido com ❤️ para empresas brasileiras**
