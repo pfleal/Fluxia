@@ -3,13 +3,41 @@ import { Input, Form, Select, Switch } from 'antd';
 import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
 
 import useLanguage from '@/locale/useLanguage';
+import languages from '@/locale/translation/translation';
+import { useAppContext } from '@/context/appContext';
 
 export default function GeneralSettingForm() {
   const translate = useLanguage();
   const dispatch = useDispatch();
+  const { appContextAction } = useAppContext();
+
+  const handleLanguageChange = (value) => {
+    appContextAction.lang.change(value);
+  };
 
   return (
     <div>
+      <Form.Item
+        label={translate('Select Language')}
+        name="idurar_app_language"
+        rules={[
+          {
+            required: false,
+          },
+        ]}
+      >
+        <Select
+          showSearch
+          style={{
+            width: '100%',
+          }}
+          options={[
+            { value: 'en_us', label: 'English (US)' },
+            { value: 'pt_br', label: 'Português (Brasil)' },
+          ]}
+          onChange={handleLanguageChange}
+        />
+      </Form.Item>
       <Form.Item
         label={translate('Date Format')}
         name="idurar_app_date_format"
