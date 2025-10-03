@@ -4,8 +4,10 @@ import { Form, Input, InputNumber, Row, Col } from 'antd';
 import { DeleteOutlined } from '@ant-design/icons';
 import { useMoney, useDate } from '@/settings';
 import calculate from '@/utils/calculate';
+import useLanguage from '@/locale/useLanguage';
 
 export default function ItemRow({ field, remove, current = null }) {
+  const translate = useLanguage();
   const [totalState, setTotal] = useState(undefined);
   const [price, setPrice] = useState(0);
   const [quantity, setQuantity] = useState(0);
@@ -59,29 +61,29 @@ export default function ItemRow({ field, remove, current = null }) {
           rules={[
             {
               required: true,
-              message: 'Missing itemName name',
+              message: translate('missing_item_name'),
             },
             {
               pattern: /^(?!\s*$)[\s\S]+$/, // Regular expression to allow spaces, alphanumeric, and special characters, but not just spaces
-              message: 'Item Name must contain alphanumeric or special characters',
+              message: translate('item_name_must_contain_characters'),
             },
           ]}
         >
-          <Input placeholder="Item Name" />
+          <Input placeholder={translate('item_name')} />
         </Form.Item>
       </Col>
       <Col className="gutter-row" span={7}>
         <Form.Item name={[field.name, 'description']}>
-          <Input placeholder="description Name" />
+          <Input placeholder={translate('description')} />
         </Form.Item>
       </Col>
       <Col className="gutter-row" span={3}>
-        <Form.Item name={[field.name, 'quantity']} rules={[{ required: true }]}>
+        <Form.Item name={[field.name, 'quantity']} rules={[{ required: true, message: translate('please_enter_quantity') }]}>
           <InputNumber style={{ width: '100%' }} min={0} onChange={updateQt} />
         </Form.Item>
       </Col>
       <Col className="gutter-row" span={4}>
-        <Form.Item name={[field.name, 'price']} rules={[{ required: true }]}>
+        <Form.Item name={[field.name, 'price']} rules={[{ required: true, message: translate('please_enter_price') }]}>
           <InputNumber
             className="moneyInput"
             onChange={updatePrice}

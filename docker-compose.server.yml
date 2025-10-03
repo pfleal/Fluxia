@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:7
+    container_name: crm_mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - crm-net
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: crm_backend
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=8888
+      - DATABASE=mongodb://mongo:27017/fluxia
+      - JWT_SECRET=${JWT_SECRET:-supersecretjwt}
+    depends_on:
+      - mongo
+    ports:
+      - "8888:8888"
+    networks:
+      - crm-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      # Required: set VITE_BACKEND_SERVER to your public backend URL
+      # Example: http://<SERVER_PUBLIC_IP>:8888/
+      args:
+        VITE_BACKEND_SERVER: ${VITE_BACKEND_SERVER}
+    container_name: crm_frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    networks:
+      - crm-net
+
+volumes:
+  mongo_data:
+
+networks:
+  crm-net:
+    driver: bridge

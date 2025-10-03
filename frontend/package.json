@@ -1,5 +1,5 @@
 {
-  "name": "idurar-erp-crm",
+  "name": "fluxia-erp-crm",
   "version": "4.1.0",
   "engines": {
     "node": "20.9.0",
@@ -7,7 +7,9 @@
   },
   "type": "module",
   "dependencies": {
+    "@ant-design/charts": "^2.6.5",
     "@ant-design/icons": "^5.3.0",
+    "@ant-design/plots": "^2.6.5",
     "@ant-design/pro-layout": "^7.17.19",
     "@reduxjs/toolkit": "^2.2.1",
     "@vitejs/plugin-react": "^4.3.1",
@@ -17,6 +19,7 @@
     "currency.js": "2.0.4",
     "dayjs": "^1.11.10",
     "just-compare": "^2.3.0",
+    "moment": "^2.30.1",
     "react": "^18.3.1",
     "react-dom": "^18.2.0",
     "react-quill": "^2.0.0",
@@ -35,6 +38,7 @@
     "dev:remote": "cross-env VITE_DEV_REMOTE=remote npm run dev"
   },
   "devDependencies": {
+    "@playwright/test": "^1.55.1",
     "@types/react": "^18.2.38",
     "@types/react-dom": "^18.2.17",
     "eslint": "^8.56.0",

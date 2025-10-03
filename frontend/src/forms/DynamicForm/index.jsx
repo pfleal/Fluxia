@@ -298,9 +298,9 @@ function FormElement({ field, feedback, setFeedback }) {
     string: (
       <Input autoComplete="off" maxLength={field.maxLength} defaultValue={field.defaultValue} />
     ),
-    url: <Input addonBefore="http://" autoComplete="off" placeholder="www.example.com" />,
+    url: <Input addonBefore="http://" autoComplete="off" placeholder={translate('website_example')} />,
     textarea: <TextArea rows={4} />,
-    email: <Input autoComplete="off" placeholder="email@example.com" />,
+    email: <Input autoComplete="off" placeholder={translate('email_example')} />,
     number: <InputNumber style={{ width: '100%' }} />,
     phone: <Input style={{ width: '100%' }} placeholder="+1 123 456 789" />,
     boolean: (

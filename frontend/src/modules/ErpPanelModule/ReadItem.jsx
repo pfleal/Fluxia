@@ -127,7 +127,9 @@ export default function ReadItem({ config, selectedItem }) {
     <>
       <PageHeader
         onBack={() => {
-          navigate(`/${entity.toLowerCase()}`);
+          // Convert camelCase to kebab-case for URL routing
+          const kebabCaseEntity = entity.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+          navigate(`/${kebabCaseEntity}`);
         }}
         title={`${ENTITY_NAME} # ${currentErp.number}/${currentErp.year || ''}`}
         ghost={false}
@@ -143,11 +145,13 @@ export default function ReadItem({ config, selectedItem }) {
           <Button
             key={`${uniqueId()}`}
             onClick={() => {
-              navigate(`/${entity.toLowerCase()}`);
+              // Convert camelCase to kebab-case for URL routing
+              const kebabCaseEntity = entity.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+              navigate(`/${kebabCaseEntity}`);
             }}
             icon={<CloseCircleOutlined />}
           >
-            {translate('Close')}
+            {translate('close')}
           </Button>,
           <Button
             key={`${uniqueId()}`}
@@ -159,7 +163,7 @@ export default function ReadItem({ config, selectedItem }) {
             }}
             icon={<FilePdfOutlined />}
           >
-            {translate('Download PDF')}
+            {translate('download_pdf')}
           </Button>,
           <Button
             key={`${uniqueId()}`}
@@ -169,7 +173,7 @@ export default function ReadItem({ config, selectedItem }) {
             }}
             icon={<MailOutlined />}
           >
-            {translate('Send by Email')}
+            {translate('send_by_email')}
           </Button>,
           <Button
             key={`${uniqueId()}`}
@@ -191,7 +195,9 @@ export default function ReadItem({ config, selectedItem }) {
                   data: currentErp,
                 })
               );
-              navigate(`/${entity.toLowerCase()}/update/${currentErp._id}`);
+              // Convert camelCase to kebab-case for URL routing
+              const kebabCaseEntity = entity.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+              navigate(`/${kebabCaseEntity}/update/${currentErp._id}`);
             }}
             type="primary"
             icon={<EditOutlined />}
@@ -204,7 +210,7 @@ export default function ReadItem({ config, selectedItem }) {
         }}
       >
         <Row>
-          <Statistic title="Status" value={currentErp.status} />
+          <Statistic title="Status" value={translate(currentErp.status)} />
           <Statistic
             title={translate('SubTotal')}
             value={moneyFormatter({

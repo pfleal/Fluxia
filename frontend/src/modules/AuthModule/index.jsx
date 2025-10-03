@@ -1,45 +1,48 @@
-import useLanguage from '@/locale/useLanguage';
+import { Layout, Col, Divider } from 'antd';
 
-import { Layout, Col, Divider, Typography } from 'antd';
-
-import AuthLayout from '@/layout/AuthLayout';
 import SideContent from './SideContent';
+import logo from '@/style/images/fluxia-icon.svg';
 
-import logo from '@/style/images/idurar-crm-erp.svg';
+const { Content, Sider } = Layout;
 
-const { Content } = Layout;
-const { Title } = Typography;
-
-const AuthModule = ({ authContent, AUTH_TITLE, isForRegistre = false }) => {
-  const translate = useLanguage();
+const AuthModule = ({ authContent, AUTH_TITLE }) => {
   return (
-    <AuthLayout sideContent={<SideContent />}>
+    <Layout style={{ minHeight: '100vh' }}>
+      <Sider
+        style={{
+          backgroundColor: '#f0f2f5',
+          minHeight: '100vh',
+        }}
+        width={'50%'}
+        breakpoint="lg"
+        collapsedWidth="0"
+      >
+        <SideContent />
+      </Sider>
       <Content
         style={{
-          padding: isForRegistre ? '40px 30px 30px' : '100px 30px 30px',
-          maxWidth: '440px',
-          margin: '0 auto',
+          padding: '20px',
+          backgroundColor: '#ffffff',
         }}
       >
-        <Col xs={{ span: 24 }} sm={{ span: 24 }} md={{ span: 0 }} span={0}>
-          <img
-            src={logo}
-            alt="Logo"
-            style={{
-              margin: '0px auto 20px',
-              display: 'block',
-            }}
-            height={63}
-            width={220}
-          />
-          <div className="space10" />
-        </Col>
-        <Title level={1}>{translate(AUTH_TITLE)}</Title>
-
-        <Divider />
-        <div className="site-layout-content">{authContent}</div>
+        <div
+          style={{
+            maxWidth: '400px',
+            margin: '0 auto',
+            padding: '50px 0',
+          }}
+        >
+          <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+            <img src={logo} alt="Fluxia" style={{ height: '60px', marginBottom: '20px' }} />
+            <h1 style={{ fontSize: '24px', fontWeight: 'bold', color: '#1890ff' }}>
+              {AUTH_TITLE}
+            </h1>
+          </div>
+          <Divider />
+          {authContent}
+        </div>
       </Content>
-    </AuthLayout>
+    </Layout>
   );
 };
 

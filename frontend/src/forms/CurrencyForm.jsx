@@ -1,8 +1,10 @@
 import React from 'react';
 import { Switch, Form, Input } from 'antd';
 import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
+import useLanguage from '@/locale/useLanguage';
 
 export default function CurrencyForm({ isUpdateForm = false }) {
+  const translate = useLanguage();
   return (
     <>
       <Form.Item
@@ -11,7 +13,7 @@ export default function CurrencyForm({ isUpdateForm = false }) {
         rules={[
           {
             required: true,
-            message: 'Please input your currency name!',
+            message: translate('please_input_currency_name'),
           },
         ]}
       >
@@ -23,7 +25,7 @@ export default function CurrencyForm({ isUpdateForm = false }) {
         rules={[
           {
             required: true,
-            message: 'Please input your surname!',
+            message: translate('please_input_surname'),
           },
         ]}
         style={{

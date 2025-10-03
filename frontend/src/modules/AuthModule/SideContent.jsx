@@ -1,41 +1,56 @@
 import { Space, Layout, Divider, Typography } from 'antd';
-import logo from '@/style/images/idurar-crm-erp.svg';
+
+import logo from '@/style/images/fluxia-logo.svg';
+
 import useLanguage from '@/locale/useLanguage';
-import { useSelector } from 'react-redux';
 
 const { Content } = Layout;
 const { Title, Text } = Typography;
 
 export default function SideContent() {
   const translate = useLanguage();
-
   return (
     <Content
       style={{
         padding: '150px 30px 30px',
         width: '100%',
-        maxWidth: '450px',
+        maxWidth: '400px',
         margin: '0 auto',
       }}
-      className="sideContent"
     >
       <div style={{ width: '100%' }}>
         <img
           src={logo}
-          alt="IDURAR ERP CRM"
-          style={{ margin: '0 0 40px', display: 'block' }}
-          height={63}
-          width={220}
+          alt="Fluxia ERP CRM"
+          style={{ margin: '0 auto 40px', display: 'block' }}
         />
-
-        <Title level={1} style={{ fontSize: 28 }}>
-          Free Open Source ERP / CRM
+        <div className="space30"></div>
+        <Title level={3}>
+          {translate('Gerencie sua empresa de forma inteligente')}
         </Title>
-        <Text>
-          Accounting / Invoicing / Quote App <b /> based on Node.js React.js Ant Design
-        </Text>
-
-        <div className="space20"></div>
+        <p>
+          {translate('Fluxia oferece uma solução completa para gestão empresarial, integrando ERP e CRM em uma única plataforma moderna e eficiente.')}
+        </p>
+        <Divider />
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div>
+            <div className="left">
+              <Text strong>{translate('Endereço')}</Text>
+              <br />
+              <Text>{translate('São Paulo, Brasil')}</Text>
+            </div>
+          </div>
+          <div>
+            <Text strong>{translate('Telefone')}</Text>
+            <br />
+            <Text>+55 11 9999-9999</Text>
+          </div>
+        </div>
       </div>
     </Content>
   );

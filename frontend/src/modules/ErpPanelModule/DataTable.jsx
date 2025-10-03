@@ -29,7 +29,9 @@ function AddNewItem({ config }) {
   const { ADD_NEW_ENTITY, entity } = config;
 
   const handleClick = () => {
-    navigate(`/${entity.toLowerCase()}/create`);
+    // Convert camelCase to kebab-case for URL routing
+    const kebabCaseEntity = entity.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    navigate(`/${kebabCaseEntity}/create`);
   };
 
   return (
@@ -64,7 +66,7 @@ export default function DataTable({ config, extra = [] }) {
       icon: <EditOutlined />,
     },
     {
-      label: translate('Download'),
+      label: 'PDF',
       key: 'download',
       icon: <FilePdfOutlined />,
     },
@@ -84,12 +86,16 @@ export default function DataTable({ config, extra = [] }) {
 
   const handleRead = (record) => {
     dispatch(erp.currentItem({ data: record }));
-    navigate(`/${entity}/read/${record._id}`);
+    // Convert camelCase to kebab-case for URL routing
+    const kebabCaseEntity = entity.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    navigate(`/${kebabCaseEntity}/read/${record._id}`);
   };
   const handleEdit = (record) => {
     const data = { ...record };
     dispatch(erp.currentAction({ actionType: 'update', data }));
-    navigate(`/${entity}/update/${record._id}`);
+    // Convert camelCase to kebab-case for URL routing
+    const kebabCaseEntity = entity.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+    navigate(`/${kebabCaseEntity}/update/${record._id}`);
   };
   const handleDownload = (record) => {
     window.open(`${DOWNLOAD_BASE_URL}${entity}/${entity}-${record._id}.pdf`, '_blank');
@@ -166,7 +172,7 @@ export default function DataTable({ config, extra = [] }) {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [entity]); // Add entity as dependency to prevent unnecessary re-renders
 
   const filterTable = (value) => {
     const options = { equal: value, filter: searchConfig?.entity };

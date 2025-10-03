@@ -80,7 +80,7 @@ export default function CustomerForm({ isUpdateForm = false }) {
           },
           {
             pattern: validatePhoneNumber,
-            message: 'Please enter a valid phone number',
+            message: translate('please_enter_valid_phone_number'),
           },
         ]}
       >

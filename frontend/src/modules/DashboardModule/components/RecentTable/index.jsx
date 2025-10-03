@@ -26,7 +26,7 @@ export default function RecentTable({ ...props }) {
       icon: <EditOutlined />,
     },
     {
-      label: translate('Download'),
+      label: 'PDF',
       key: 'download',
       icon: <FilePdfOutlined />,
     },

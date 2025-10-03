@@ -81,33 +81,49 @@ export default function CreateItem({ config, CreateForm }) {
       dispatch(erp.resetAction({ actionType: 'create' }));
       setSubTotal(0);
       setOfferSubTotal(0);
-      navigate(`/${entity.toLowerCase()}/read/${result._id}`);
+      // Convert camelCase to kebab-case for URL routing
+      const kebabCaseEntity = entity.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+      navigate(`/${kebabCaseEntity}/read/${result._id}`);
     }
     return () => {};
   }, [isSuccess]);
 
   const onSubmit = (fieldsValue) => {
     console.log('🚀 ~ onSubmit ~ fieldsValue:', fieldsValue);
-    if (fieldsValue) {
-      if (fieldsValue.items) {
-        let newList = [...fieldsValue.items];
+    
+    // Get all form values directly from the form instance as a fallback
+    const allFormValues = form.getFieldsValue();
+    console.log('🚀 ~ onSubmit ~ allFormValues from form instance:', allFormValues);
+    
+    // Use allFormValues if fieldsValue is empty
+    const dataToSubmit = Object.keys(fieldsValue || {}).length > 0 ? fieldsValue : allFormValues;
+    console.log('🚀 ~ onSubmit ~ dataToSubmit:', dataToSubmit);
+    
+    if (dataToSubmit) {
+      // Convert direction field to isIncrease for stock movement
+      if (entity === 'stockmovement' && dataToSubmit.direction) {
+        dataToSubmit.isIncrease = dataToSubmit.direction === 'in';
+        delete dataToSubmit.direction; // Remove the direction field as backend doesn't expect it
+      }
+      
+      if (dataToSubmit.items) {
+        let newList = [...dataToSubmit.items];
         newList.map((item) => {
           item.total = calculate.multiply(item.quantity, item.price);
         });
-        fieldsValue = {
-          ...fieldsValue,
-          items: newList,
-        };
+        dataToSubmit.items = newList;
       }
     }
-    dispatch(erp.create({ entity, jsonData: fieldsValue }));
+    dispatch(erp.create({ entity, jsonData: dataToSubmit }));
   };
 
   return (
     <>
       <PageHeader
         onBack={() => {
-          navigate(`/${entity.toLowerCase()}`);
+          // Convert camelCase to kebab-case for URL routing
+          const kebabCaseEntity = entity.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+          navigate(`/${kebabCaseEntity}`);
         }}
         backIcon={<ArrowLeftOutlined />}
         title={translate('New')}
@@ -117,7 +133,11 @@ export default function CreateItem({ config, CreateForm }) {
         extra={[
           <Button
             key={`${uniqueId()}`}
-            onClick={() => navigate(`/${entity.toLowerCase()}`)}
+            onClick={() => {
+              // Convert camelCase to kebab-case for URL routing
+              const kebabCaseEntity = entity.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+              navigate(`/${kebabCaseEntity}`);
+            }}
             icon={<CloseCircleOutlined />}
           >
             {translate('Cancel')}
@@ -130,8 +150,8 @@ export default function CreateItem({ config, CreateForm }) {
       ></PageHeader>
       <Divider dashed />
       <Loading isLoading={isLoading}>
-        <Form form={form} layout="vertical" onFinish={onSubmit} onValuesChange={handelValuesChange}>
-          <CreateForm subTotal={subTotal} offerTotal={offerSubTotal} />
+        <Form form={form} layout="vertical" onFinish={onSubmit}>
+          <CreateForm subTotal={subTotal} offerTotal={offerSubTotal} form={form} />
         </Form>
       </Loading>
     </>

@@ -111,7 +111,7 @@ export default function LeadForm() {
       </Form.Item>
 
       <Form.Item label={translate('source')} name="source">
-        <Input placeholder="ex: linkedin, website, ads..." />
+        <Input placeholder={translate('source_example')} />
       </Form.Item>
     </>
   );

@@ -73,6 +73,7 @@ function LoadQuoteForm({ subTotal = 0, current = null }) {
             rules={[
               {
                 required: true,
+                message: translate('please_enter_client'),
               },
             ]}
           >
@@ -245,6 +246,7 @@ function LoadQuoteForm({ subTotal = 0, current = null }) {
               rules={[
                 {
                   required: true,
+                  message: translate('please_input_tax_value'),
                 },
               ]}
             >

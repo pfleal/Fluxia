@@ -74,10 +74,12 @@ export default function Invoice() {
     {
       title: translate('Status'),
       dataIndex: 'status',
+      render: (status) => translate(status),
     },
     {
       title: translate('Payment'),
       dataIndex: 'paymentStatus',
+      render: (paymentStatus) => translate(paymentStatus),
     },
   ];
 

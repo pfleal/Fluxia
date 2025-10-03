@@ -37,6 +37,11 @@ const quoteSchema = new mongoose.Schema({
   },
   items: [
     {
+      product: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Product',
+        autopopulate: true
+      },
       itemName: {
         type: String,
         required: true,
@@ -52,18 +57,19 @@ const quoteSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
-      // taxRate: {
-      //   type: Number,
-      //   default: 0,
-      // },
-      // subTotal: {
-      //   type: Number,
-      //   default: 0,
-      // },
-      // taxTotal: {
-      //   type: Number,
-      //   default: 0,
-      // },
+      // Campos adicionais para CPV
+      costPrice: {
+        type: Number,
+        default: 0,
+      },
+      margin: {
+        type: Number,
+        default: 0,
+      },
+      marginPercentage: {
+        type: Number,
+        default: 0,
+      },
       total: {
         type: Number,
         required: true,

@@ -107,7 +107,9 @@ export default function UpdateItem({ config, UpdateForm }) {
       form.resetFields();
       setSubTotal(0);
       dispatch(erp.resetAction({ actionType: 'update' }));
-      navigate(`/${entity.toLowerCase()}/read/${id}`);
+      // Convert camelCase to kebab-case for URL routing
+      const kebabCaseEntity = entity.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+      navigate(`/${kebabCaseEntity}/read/${id}`);
     }
   }, [isSuccess]);
 
@@ -137,7 +139,9 @@ export default function UpdateItem({ config, UpdateForm }) {
     <>
       <PageHeader
         onBack={() => {
-          navigate(`/${entity.toLowerCase()}`);
+          // Convert camelCase to kebab-case for URL routing
+          const kebabCaseEntity = entity.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+          navigate(`/${kebabCaseEntity}`);
         }}
         title={translate('update')}
         ghost={false}
@@ -153,7 +157,9 @@ export default function UpdateItem({ config, UpdateForm }) {
           <Button
             key={`${uniqueId()}`}
             onClick={() => {
-              navigate(`/${entity.toLowerCase()}`);
+              // Convert camelCase to kebab-case for URL routing
+              const kebabCaseEntity = entity.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+              navigate(`/${kebabCaseEntity}`);
             }}
             icon={<CloseCircleOutlined />}
           >
@@ -168,7 +174,7 @@ export default function UpdateItem({ config, UpdateForm }) {
       <Divider dashed />
       <Loading isLoading={isLoading}>
         <Form form={form} layout="vertical" onFinish={onSubmit} onValuesChange={handelValuesChange}>
-          <UpdateForm subTotal={subTotal} current={current} />
+          <UpdateForm subTotal={subTotal} current={current} form={form} />
         </Form>
       </Loading>
     </>

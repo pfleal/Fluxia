@@ -9,9 +9,11 @@ import { useErpContext } from '@/context/erp';
 import { selectSearchedItems } from '@/redux/erp/selectors';
 
 import { Empty } from 'antd';
+import useLanguage from '@/locale/useLanguage';
 
 export default function Search({ config }) {
   let { entity, searchConfig } = config;
+  const { translate } = useLanguage();
 
   const { displayLabels, searchFields, outputValue = '_id' } = searchConfig;
   const dispatch = useDispatch();
@@ -88,7 +90,7 @@ export default function Search({ config }) {
       onChange={onChange}
       notFoundContent={!isSuccess ? <Empty /> : ''}
       allowClear={true}
-      placeholder="Your Search here"
+      placeholder={translate('search_here')}
     >
       <Input suffix={<SearchOutlined />} />
     </AutoComplete>

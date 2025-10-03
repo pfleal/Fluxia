@@ -42,6 +42,11 @@ app.use('/api', adminAuth.isValidAuthToken, erpApiRouter);
 app.use('/download', coreDownloadRouter);
 app.use('/public', corePublicRouter);
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  return res.status(200).json({ status: 'ok' });
+});
+
 // If that above routes didnt work, we 404 them and forward to error handler
 app.use(errorHandlers.notFound);
 

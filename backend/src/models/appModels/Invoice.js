@@ -50,11 +50,11 @@ const invoiceSchema = new mongoose.Schema({
   },
   items: [
     {
-      // product: {
-      //   type: mongoose.Schema.ObjectId,
-      //   ref: 'Product',
-      //   // required: true,
-      // },
+      product: {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Product',
+        autopopulate: true
+      },
       itemName: {
         type: String,
         required: true,
@@ -71,22 +71,19 @@ const invoiceSchema = new mongoose.Schema({
         type: Number,
         required: true,
       },
-      // discount: {
-      //   type: Number,
-      //   default: 0,
-      // },
-      // taxRate: {
-      //   type: Number,
-      //   default: 0,
-      // },
-      // subTotal: {
-      //   type: Number,
-      //   default: 0,
-      // },
-      // taxTotal: {
-      //   type: Number,
-      //   default: 0,
-      // },
+      // Campos adicionais para CPV
+      costPrice: {
+        type: Number,
+        default: 0,
+      },
+      margin: {
+        type: Number,
+        default: 0,
+      },
+      marginPercentage: {
+        type: Number,
+        default: 0,
+      },
       total: {
         type: Number,
         required: true,

@@ -1,18 +1,83 @@
+# Sistema CRM ERP Fluxia
+
 <div align="center">
-    <img src="idurar-crm-erp.svg" width="128px" />
-    <h1>Fluxia - Sistema CRM/ERP Personalizado</h1>
-    <p align="center">
-        <p>Sistema de Gestão Empresarial Completo em Português</p>
-    </p>
-    
-
-```
- Dê uma Estrela ⭐️ & Fork neste projeto ... Feliz codificação! 🤩`
-```
-
-Fluxia é um Sistema CRM/ERP personalizado (Faturamento / Orçamentos / Contabilidade) baseado em MERN Stack avançado (Node.js / Express.js / MongoDb / React.js) com Ant Design (AntD) e Redux
-
+  <img src="frontend/src/style/images/fluxia-logo.svg" alt="Fluxia ERP CRM" width="300"/>
 </div>
+
+## Sobre o Fluxia
+
+O Fluxia é um sistema completo de gestão empresarial que integra funcionalidades de ERP (Enterprise Resource Planning) e CRM (Customer Relationship Management) em uma única plataforma moderna e eficiente.
+
+### Principais Funcionalidades
+
+- **Gestão de Clientes**: Controle completo de informações de clientes e prospects
+- **Gestão Financeira**: Controle de receitas, despesas e fluxo de caixa
+- **Sistema de Orçamentos**: Criação e gestão de propostas comerciais
+- **Gestão de Faturas**: Emissão e controle de faturas e notas fiscais
+- **Dashboard Analítico**: Relatórios e métricas em tempo real
+- **Configurações Fiscais**: Adaptado para a legislação brasileira
+
+### Tecnologias Utilizadas
+
+**Backend:**
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- JWT Authentication
+- Bcrypt
+- Nodemailer
+- AWS S3
+- OpenAI Integration
+
+**Frontend:**
+- React 18
+- Ant Design
+- Redux
+- React Router
+- Axios
+- Vite
+
+## Instalação
+
+1. Clone o repositório:
+```bash
+git clone https://github.com/fluxia/fluxia-erp-crm.git
+cd fluxia-erp-crm
+```
+
+2. Instale as dependências do backend:
+```bash
+cd backend
+npm install
+```
+
+3. Instale as dependências do frontend:
+```bash
+cd ../frontend
+npm install
+```
+
+4. Configure as variáveis de ambiente conforme necessário
+
+5. Execute o sistema:
+```bash
+# Backend
+cd backend
+npm run dev
+
+# Frontend (em outro terminal)
+cd frontend
+npm run dev
+```
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT.
+
+## Contato
+
+Para mais informações, visite [fluxia.com.br](https://fluxia.com.br)
 
 **🚀 Repositório GitHub**: [https://github.com/pfleal/Fluxia](https://github.com/pfleal/Fluxia)
 

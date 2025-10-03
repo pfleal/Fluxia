@@ -5,8 +5,8 @@ import { Button, Drawer, Layout, Menu } from 'antd';
 import { useAppContext } from '@/context/appContext';
 
 import useLanguage from '@/locale/useLanguage';
-import logoIcon from '@/style/images/logo-icon.svg';
-import logoText from '@/style/images/logo-text.svg';
+import logoIcon from '@/style/images/fluxia-icon.svg';
+import logoText from '@/style/images/fluxia-text.svg';
 
 import useResponsive from '@/hooks/useResponsive';
 
@@ -26,6 +26,11 @@ import {
   FilterOutlined,
   WalletOutlined,
   ReconciliationOutlined,
+  ToolOutlined,
+  StockOutlined,
+  BarChartOutlined,
+  LineChartOutlined,
+  CalendarOutlined,
 } from '@ant-design/icons';
 
 const { Sider } = Layout;
@@ -60,6 +65,13 @@ function Sidebar({ collapsible, isMobile = false }) {
       label: <Link to={'/customer'}>{translate('customers')}</Link>,
     },
 
+    // Products
+    {
+      key: 'product',
+      icon: <TagsOutlined />,
+      label: <Link to={'/product'}>{translate('products')}</Link>,
+    },
+
     {
       key: 'invoice',
       icon: <ContainerOutlined />,
@@ -81,6 +93,36 @@ function Sidebar({ collapsible, isMobile = false }) {
       label: <Link to={'/payment/mode'}>{translate('payments_mode')}</Link>,
       icon: <WalletOutlined />,
     },
+
+    // Industrial/Manufacturing section
+    {
+      key: 'production-order',
+      icon: <ToolOutlined />,
+      label: <Link to={'/production-order'}>{translate('production_orders')}</Link>,
+    },
+    {
+      key: 'stockmovement',
+        icon: <StockOutlined />,
+        label: <Link to={'/stockmovement'}>{translate('stock_movements')}</Link>,
+    },
+    {
+      key: 'production-planning',
+      icon: <CalendarOutlined />,
+      label: <Link to={'/production-planning'}>{translate('production_planning')}</Link>,
+    },
+
+    // Reports
+    {
+      key: 'inventory-report',
+      icon: <BarChartOutlined />,
+      label: <Link to={'/reports/inventory'}>{translate('inventory_reports')}</Link>,
+    },
+    {
+      key: 'stock-analysis',
+      icon: <LineChartOutlined />,
+      label: <Link to={'/reports/stock-analysis'}>{translate('stock_analysis')}</Link>,
+    },
+
     {
       key: 'taxes',
       label: <Link to={'/taxes'}>{translate('taxes')}</Link>,

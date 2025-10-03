@@ -223,3 +223,19 @@ dist/
 # Temporary files
 *.tmp
 *.temp
+
+# Release archives and compressed bundles
+*.tar.gz
+*.zip
+
+# Certificates and private keys
+*.pem
+*.key
+*.crt
+*.pfx
+
+# Playwright reports and test outputs
+playwright-report/
+**/playwright-report/
+test-results/
+**/test-results/

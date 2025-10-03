@@ -21,7 +21,27 @@ const create = async (req, res) => {
 
   const { items = [], taxRate = 0, discount = 0 } = value;
 
-  // default
+  // Calcular CPV e margens para cada item
+  if (items && items.length > 0) {
+    for (let i = 0; i < items.length; i++) {
+      
+      const item = items[i];
+      // Se o item tiver um produto associado, buscar o custo
+      if (item.product) {
+        try {
+          const product = await mongoose.model('Product').findOne({ _id: item.product });
+          if (product) {
+            item.costPrice = product.costPrice || 0;
+            item.margin = item.price - item.costPrice;
+            item.marginPercentage = item.costPrice > 0 ? (item.margin / item.costPrice) * 100 : 0;
+          }
+        } catch (error) {
+          console.error('Erro ao buscar produto para cálculo de CPV:', error);
+        }
+      }
+
+    }
+  }
   let subTotal = 0;
   let taxTotal = 0;
   let total = 0;

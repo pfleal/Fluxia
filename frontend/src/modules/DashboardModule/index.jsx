@@ -14,6 +14,10 @@ import RecentTable from './components/RecentTable';
 import SummaryCard from './components/SummaryCard';
 import PreviewCard from './components/PreviewCard';
 import CustomerPreviewCard from './components/CustomerPreviewCard';
+import IndustrialMetricsCard from './components/IndustrialMetricsCard';
+import ProductionOverviewCard from './components/ProductionOverviewCard';
+import InventoryStatusCard from './components/InventoryStatusCard';
+import QualityMetricsCard from './components/QualityMetricsCard';
 
 import { selectMoneyFormat } from '@/redux/settings/selectors';
 import { useSelector } from 'react-redux';
@@ -44,6 +48,25 @@ export default function DashboardModule() {
     onFetch: fetchPayemntsStats,
   } = useOnFetch();
 
+  // Industrial analytics data fetching
+  const {
+    result: productionResult,
+    isLoading: productionLoading,
+    onFetch: fetchProductionStats,
+  } = useOnFetch();
+
+  const {
+    result: inventoryResult,
+    isLoading: inventoryLoading,
+    onFetch: fetchInventoryStats,
+  } = useOnFetch();
+
+  const {
+    result: qualityResult,
+    isLoading: qualityLoading,
+    onFetch: fetchQualityStats,
+  } = useOnFetch();
+
   const { result: clientResult, isLoading: clientLoading } = useFetch(() =>
     request.summary({ entity: 'client' })
   );
@@ -55,6 +78,11 @@ export default function DashboardModule() {
       fetchInvoicesStats(getStatsData({ entity: 'invoice', currency }));
       fetchQuotesStats(getStatsData({ entity: 'quote', currency }));
       fetchPayemntsStats(getStatsData({ entity: 'payment', currency }));
+      
+      // Fetch industrial analytics data
+      fetchProductionStats(request.summary({ entity: 'productionOrder' }));
+      fetchInventoryStats(request.summary({ entity: 'product' }));
+      fetchQualityStats(request.summary({ entity: 'quality' }));
     }
   }, [money_format_settings.default_currency_code]);
 
@@ -154,6 +182,55 @@ export default function DashboardModule() {
           />
         </Row>
         <div className="space30"></div>
+        
+        {/* Industrial Analytics Section */}
+        <Row gutter={[32, 32]}>
+          <Col className="gutter-row w-full" sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 12 }}>
+            <IndustrialMetricsCard
+              isLoading={productionLoading}
+              productionEfficiency={productionResult?.efficiency || 0}
+              stockTurnover={inventoryResult?.turnover || 0}
+              qualityRate={qualityResult?.qualityRate || 0}
+              onTimeDelivery={productionResult?.onTimeDelivery || 0}
+            />
+          </Col>
+          <Col className="gutter-row w-full" sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 12 }}>
+            <ProductionOverviewCard
+              isLoading={productionLoading}
+              activeOrders={productionResult?.activeOrders || 0}
+              completedOrders={productionResult?.completedOrders || 0}
+              pendingOrders={productionResult?.pendingOrders || 0}
+              delayedOrders={productionResult?.delayedOrders || 0}
+              recentOrders={productionResult?.recentOrders || []}
+            />
+          </Col>
+        </Row>
+        <div className="space30"></div>
+        
+        <Row gutter={[32, 32]}>
+          <Col className="gutter-row w-full" sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 12 }}>
+            <InventoryStatusCard
+              isLoading={inventoryLoading}
+              totalProducts={inventoryResult?.totalProducts || 0}
+              lowStockProducts={inventoryResult?.lowStockProducts || 0}
+              outOfStockProducts={inventoryResult?.outOfStockProducts || 0}
+              stockValue={inventoryResult?.stockValue || 0}
+              criticalItems={inventoryResult?.criticalItems || []}
+            />
+          </Col>
+          <Col className="gutter-row w-full" sm={{ span: 24 }} md={{ span: 12 }} lg={{ span: 12 }}>
+            <QualityMetricsCard
+              isLoading={qualityLoading}
+              qualityRate={qualityResult?.qualityRate || 0}
+              defectRate={qualityResult?.defectRate || 0}
+              reworkRate={qualityResult?.reworkRate || 0}
+              customerComplaints={qualityResult?.customerComplaints || 0}
+              qualityTrends={qualityResult?.qualityTrends || []}
+            />
+          </Col>
+        </Row>
+        <div className="space30"></div>
+        
         <Row gutter={[32, 32]}>
           <Col className="gutter-row w-full" sm={{ span: 24 }} md={{ span: 24 }} lg={{ span: 18 }}>
             <div className="whiteBox shadow" style={{ height: 458 }}>

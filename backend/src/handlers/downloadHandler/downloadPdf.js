@@ -3,12 +3,27 @@ const mongoose = require('mongoose');
 
 module.exports = downloadPdf = async (req, res, { directory, id }) => {
   try {
-    const modelName = directory.slice(0, 1).toUpperCase() + directory.slice(1);
+    console.log('🔍 DEBUG: Starting downloadPdf with directory:', directory, 'id:', id);
+    
+    // Map directory names to model names
+    let modelName;
+    if (directory === 'stockmovement') {
+      modelName = 'StockMovement';
+    } else {
+      // Capitalize first letter for other directories
+      modelName = directory.charAt(0).toUpperCase() + directory.slice(1);
+    }
+
+    console.log('🔍 DEBUG: Model name resolved to:', modelName);
+
     if (mongoose.models[modelName]) {
+      console.log('🔍 DEBUG: Model exists, searching for document...');
       const Model = mongoose.model(modelName);
       const result = await Model.findOne({
         _id: id,
       }).exec();
+
+      console.log('🔍 DEBUG: Document found:', !!result);
 
       // Throw error if no result
       if (!result) {
@@ -17,22 +32,30 @@ module.exports = downloadPdf = async (req, res, { directory, id }) => {
 
       // Continue process if result is returned
 
+      console.log('🔍 DEBUG: Starting PDF generation...');
       const fileId = modelName.toLowerCase() + '-' + result._id + '.pdf';
       const folderPath = modelName.toLowerCase();
       const targetLocation = `src/public/download/${folderPath}/${fileId}`;
+      
+      console.log('🔍 DEBUG: Target location:', targetLocation);
+      
       await custom.generatePdf(
         modelName,
         { filename: folderPath, format: 'A4', targetLocation },
         result,
         async () => {
+          console.log('🔍 DEBUG: PDF generated successfully, sending download...');
           return res.download(targetLocation, (error) => {
-            if (error)
+            if (error) {
+              console.log('🔍 DEBUG: Download error:', error.message);
               return res.status(500).json({
                 success: false,
                 result: null,
                 message: "Couldn't find file",
                 error: error.message,
               });
+            }
+            console.log('🔍 DEBUG: Download completed successfully');
           });
         }
       );
