@@ -1,7 +1,9 @@
 import { notification } from 'antd';
 import codeMessage from './codeMessage';
+import useLanguage from '@/locale/useLanguage';
 
 const errorHandler = (error) => {
+  const translate = useLanguage();
   if (!navigator.onLine) {
     notification.config({
       duration: 15,
@@ -9,13 +11,13 @@ const errorHandler = (error) => {
     });
     // Code to execute when there is internet connection
     notification.error({
-      message: 'No internet connection',
-      description: 'Cannot connect to the Internet, Check your internet network',
+      message: translate('No internet connection'),
+      description: translate('Cannot connect to the Internet, Check your internet network'),
     });
     return {
       success: false,
       result: null,
-      message: 'Cannot connect to the server, Check your internet network',
+      message: translate('Cannot connect to the server, Check your internet network'),
     };
   }
 
@@ -34,7 +36,7 @@ const errorHandler = (error) => {
     return {
       success: false,
       result: null,
-      message: 'Cannot connect to the server, Contact your Account administrator',
+      message: translate('Cannot connect to the server, Contact your Account administrator'),
     };
   }
 
@@ -59,8 +61,8 @@ const errorHandler = (error) => {
       maxCount: 2,
     });
     notification.error({
-      message: `Request error ${status}`,
-      description: errorText,
+      message: translate(`error_${status}`),
+      description: message ? translate(errorText) : errorText,
     });
 
     if (response?.data?.error?.name === 'JsonWebTokenError') {
@@ -77,24 +79,24 @@ const errorHandler = (error) => {
     if (navigator.onLine) {
       // Code to execute when there is internet connection
       notification.error({
-        message: 'Problem connecting to server',
-        description: 'Cannot connect to the server, Try again later',
+        message: translate('Problem connecting to server'),
+        description: translate('Cannot connect to the server, Try again later'),
       });
       return {
         success: false,
         result: null,
-        message: 'Cannot connect to the server, Contact your Account administrator',
+        message: translate('Cannot connect to the server, Contact your Account administrator'),
       };
     } else {
       // Code to execute when there is no internet connection
       notification.error({
-        message: 'No internet connection',
-        description: 'Cannot connect to the Internet, Check your internet network',
+        message: translate('No internet connection'),
+        description: translate('Cannot connect to the Internet, Check your internet network'),
       });
       return {
         success: false,
         result: null,
-        message: 'Cannot connect to the server, Check your internet network',
+        message: translate('Cannot connect to the server, Check your internet network'),
       };
     }
   }

@@ -196,7 +196,7 @@ export default function StockMovementForm({ current = null, form }) {
               min={0.01}
               step={0.01}
               style={{ width: '100%' }}
-              addonAfter={selectedProduct?.unit || 'unit'}
+              addonAfter={selectedProduct?.unit || translate('Unit')}
             />
           </Form.Item>
         </Col>

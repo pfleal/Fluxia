@@ -4,8 +4,10 @@ const getLabel = (key, langCode = 'pt_br') => {
   try {
     const lowerCaseKey = key
       .toLowerCase()
-      .replace(/[^a-zA-Z0-9]/g, '_')
-      .replace(/ /g, '_');
+      // Substitui qualquer sequência de não alfanuméricos por um único underscore
+      .replace(/[^a-z0-9]+/gi, '_')
+      // Remove underscores no início/fim
+      .replace(/^_+|_+$/g, '');
 
     // Tenta obter a tradução do arquivo de idioma
     const lang = languages[langCode];

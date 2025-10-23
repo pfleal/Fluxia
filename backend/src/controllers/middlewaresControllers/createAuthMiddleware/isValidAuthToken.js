@@ -11,6 +11,19 @@ const isValidAuthToken = async (req, res, next, { userModel, jwtSecret = 'JWT_SE
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1]; // Extract the token
 
+    // Allowlist for public auth routes that should not require JWT
+    const publicPaths = [
+      '/api/login',
+      '/api/register',
+      '/api/setup',
+      '/api/forgetpassword',
+      '/api/resetpassword',
+    ];
+    const originalUrl = req.originalUrl || '';
+    if (publicPaths.some((path) => originalUrl.startsWith(path))) {
+      return next();
+    }
+
     if (!token)
       return res.status(401).json({
         success: false,

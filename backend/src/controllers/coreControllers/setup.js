@@ -3,6 +3,8 @@ require('dotenv').config({ path: '.env.local' });
 const { globSync } = require('glob');
 const fs = require('fs');
 const { generate: uniqueId } = require('shortid');
+const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 
 const mongoose = require('mongoose');
 
@@ -37,6 +39,26 @@ const setup = async (req, res) => {
     });
   }
 
+  // Prevent duplicate setup if an admin already exists
+  const existingAdminCount = await Admin.countDocuments({ removed: false });
+  if (existingAdminCount > 0) {
+    return res.status(409).json({
+      success: false,
+      result: null,
+      message: 'Setup already completed. Admin account exists.',
+    });
+  }
+
+  // Optional: prevent duplicate setup based on setting flag
+  const setupDoneSetting = await Setting.findOne({ settingKey: 'idurar_setup_done' });
+  if (setupDoneSetting && setupDoneSetting.settingValue === true) {
+    return res.status(409).json({
+      success: false,
+      result: null,
+      message: 'Setup already completed.',
+    });
+  }
+
   const salt = uniqueId();
 
   const passwordHash = newAdminPassword.generateHash(salt, password);
@@ -45,6 +67,7 @@ const setup = async (req, res) => {
     email,
     name,
     role: 'owner',
+    enabled: true,
   };
   const result = await new Admin(accountOwnner).save();
 
@@ -55,6 +78,21 @@ const setup = async (req, res) => {
     user: result._id,
   };
   await new AdminPassword(AdminPasswordData).save();
+
+  // Generate JWT token and register session for immediate login
+  const jwtSecret = process.env.JWT_SECRET || 'your_jwt_secret';
+  const token = jwt.sign(
+    {
+      id: result._id,
+    },
+    jwtSecret,
+    { expiresIn: '24h' }
+  );
+  await AdminPassword.findOneAndUpdate(
+    { user: result._id },
+    { $push: { loggedSessions: token } },
+    { new: true }
+  ).exec();
 
   const settingData = [];
 
@@ -91,9 +129,25 @@ const setup = async (req, res) => {
     },
   ]);
 
+  // Mark setup as done
+  await Setting.findOneAndUpdate(
+    { settingKey: 'idurar_setup_done' },
+    { settingValue: true },
+    { upsert: false }
+  );
+
   return res.status(200).json({
     success: true,
-    result: {},
+    result: {
+      _id: result._id,
+      name: result.name,
+      surname: result.surname,
+      role: result.role,
+      email: result.email,
+      photo: result.photo,
+      token: token,
+      maxAge: null,
+    },
     message: 'Successfully IDURAR App Setup',
   });
 };

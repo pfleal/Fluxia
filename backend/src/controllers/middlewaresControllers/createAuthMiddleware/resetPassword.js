@@ -13,18 +13,19 @@ const resetPassword = async (req, res, { userModel }) => {
   const databasePassword = await UserPassword.findOne({ user: userId, removed: false });
   const user = await User.findOne({ _id: userId, removed: false }).exec();
 
-  if (!user.enabled)
-    return res.status(409).json({
-      success: false,
-      result: null,
-      message: 'Your account is disabled, contact your account adminstrator',
-    });
-
+  // Checar existência antes de acessar propriedades
   if (!databasePassword || !user)
     return res.status(404).json({
       success: false,
       result: null,
       message: 'No account with this email has been registered.',
+    });
+
+  if (!user.enabled)
+    return res.status(409).json({
+      success: false,
+      result: null,
+      message: 'Your account is disabled, contact your account adminstrator',
     });
 
   const isMatch = resetToken === databasePassword.resetToken;

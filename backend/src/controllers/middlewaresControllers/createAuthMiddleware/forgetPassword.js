@@ -33,15 +33,16 @@ const forgetPassword = async (req, res, { userModel }) => {
   }
 
   const user = await User.findOne({ email: email, removed: false });
-  const databasePassword = await UserPassword.findOne({ user: user._id, removed: false });
 
-  // console.log(user);
+  // Primeiro valide existência do usuário para evitar acesso a propriedades nulas
   if (!user)
     return res.status(404).json({
       success: false,
       result: null,
       message: 'No account with this email has been registered.',
     });
+
+  const databasePassword = await UserPassword.findOne({ user: user._id, removed: false });
 
   const resetToken = shortid.generate();
   await UserPassword.findOneAndUpdate(

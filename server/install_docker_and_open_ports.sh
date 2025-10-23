@@ -6,19 +6,30 @@ echo "[1/4] Detectando SO..."
 OS=${ID:-unknown}
 echo "SO detectado: ${OS}"
 
-echo "[2/4] Instalando Docker Engine..."
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh get-docker.sh
+echo "[2/4] Instalando Docker Engine (se necessário)..."
+if command -v docker >/dev/null 2>&1; then
+  echo "Docker já instalado: $(docker --version)"
+else
+  curl -fsSL https://get.docker.com -o get-docker.sh
+  sh get-docker.sh
+fi
 
-echo "[3/4] Instalando Docker Compose v2 (plugin) se necessário..."
+echo "[3/4] Instalando Docker Compose v2 (plugin) somente se ausente..."
 if ! docker compose version >/dev/null 2>&1; then
   case "$OS" in
     ubuntu|debian)
-      apt-get update
-      apt-get install -y docker-compose-plugin
+      if ! dpkg -s docker-compose-plugin >/dev/null 2>&1; then
+        apt-get update && apt-get install -y docker-compose-plugin
+      else
+        echo "docker-compose-plugin já instalado"
+      fi
       ;;
     centos|rhel|fedora)
-      yum install -y docker-compose-plugin || dnf install -y docker-compose-plugin || true
+      if ! rpm -q docker-compose-plugin >/dev/null 2>&1; then
+        yum install -y docker-compose-plugin || dnf install -y docker-compose-plugin || true
+      else
+        echo "docker-compose-plugin já instalado"
+      fi
       ;;
     *)
       echo "SO ${OS} não suportado automaticamente para Compose plugin. Pule se já disponível."
